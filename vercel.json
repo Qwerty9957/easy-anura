@@ -1,5 +1,13 @@
 {
-    "version": 2,
-    "buildCommand": "node build.js",
-    "outputDirectory": "static"
+  "headers": [
+    {
+      "source": "/(.*).cjs",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        }
+      ]
+    }
+  ]
 }
