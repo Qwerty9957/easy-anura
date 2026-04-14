@@ -46,7 +46,7 @@ function App() {
         screen_container: screenContainerRef.current,
         bios: { url: '/v86/seabios.bin' },
         vga_bios: { url: '/v86/vgabios.bin' },
-        cdrom: { url: '/v86/linux.iso' },
+        cdrom: { url: '/v86/alpine.iso' },
         autostart: true,
         disable_keyboard: false,
         disable_mouse: false,
@@ -137,7 +137,7 @@ function App() {
           <div className="flex items-center gap-4 text-xs text-gray-500 mr-4">
             <span className="flex items-center gap-1"><Cpu className="w-3 h-3" /> x86</span>
             <span className="flex items-center gap-1"><MemoryStick className="w-3 h-3" /> 512MB</span>
-            <span className="flex items-center gap-1"><HardDrive className="w-3 h-3" /> Buildroot Linux</span>
+            <span className="flex items-center gap-1"><HardDrive className="w-3 h-3" /> Alpine Linux (32-bit)</span>
           </div>
           <div className={`w-2 h-2 rounded-full ${isRunning ? 'bg-green-500 shadow-lg shadow-green-500/50' : isBooting ? 'bg-yellow-500 animate-pulse' : 'bg-gray-600'}`} />
           <span className="text-xs text-gray-400 ml-1">{statusText}</span>
@@ -231,9 +231,9 @@ function App() {
             </p>
           </div>
           <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4">
-            <h3 className="text-sm font-semibold text-blue-400 mb-1">Built-in Browser</h3>
+            <h3 className="text-sm font-semibold text-blue-400 mb-1">Install Packages</h3>
             <p className="text-xs text-gray-400">
-              Use text-based browsers like <code className="text-blue-300">links</code> or <code className="text-blue-300">wget</code> to browse the web from within Linux.
+              Alpine uses <code className="text-blue-300">apk</code> — install any package at runtime, like <code className="text-blue-300">apk add links</code> for a text browser.
             </p>
           </div>
           <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4">
