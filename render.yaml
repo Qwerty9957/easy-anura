@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: anuraOS
-    buildCommand: "npm install && node build.js"
-    staticPublishPath: "./static"
-    env: static
-    plan: free
-    
