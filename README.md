@@ -5,7 +5,7 @@ A website that runs a real Linux environment directly in your browser using the 
 ## Features
 
 - **Real Linux** — Full x86 PC emulated in your browser. Runs a real Linux kernel with a real shell.
-- **Built-in Browser** — Use text-based browsers like `links` or `wget` to browse the web from within Linux.
+- **Install Packages** — Alpine uses `apk` — install any package at runtime, like `apk add links` for a text browser.
 - **No Installation** — Everything runs client-side. No servers, no downloads. Just open the page and boot.
 
 ## Getting Started
@@ -30,7 +30,7 @@ The production build will be in the `dist` directory.
 - React + TypeScript + Vite
 - Tailwind CSS
 - v86 x86 emulator (WebAssembly)
-- Buildroot Linux
+- Alpine Linux 3.20 (32-bit)
 
 ## License
 
