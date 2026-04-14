@@ -1,5 +1,37 @@
-# The absolute EASIEST way to use anura
+# v86-Linux
 
-building anura is complicated and annoying, especially if you just want to use a ready to go service, so I made this repo
+A website that runs a real Linux environment directly in your browser using the [v86](https://github.com/copy/v86) x86 PC emulator powered by WebAssembly.
 
-just run `npm install` and `PORT=8000 node .` and thats anura. You really can't screw it up.
+## Features
+
+- **Real Linux** — Full x86 PC emulated in your browser. Runs a real Linux kernel with a real shell.
+- **Install Packages** — Alpine uses `apk` — install any package at runtime, like `apk add links` for a text browser.
+- **No Installation** — Everything runs client-side. No servers, no downloads. Just open the page and boot.
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+Then open http://localhost:5173 in your browser and click "Boot Linux".
+
+## Build
+
+```bash
+npm run build
+```
+
+The production build will be in the `dist` directory.
+
+## Tech Stack
+
+- React + TypeScript + Vite
+- Tailwind CSS
+- v86 x86 emulator (WebAssembly)
+- Alpine Linux 3.20 (32-bit)
+
+## License
+
+See [LICENSE](LICENSE) for details.
