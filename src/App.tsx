@@ -100,21 +100,70 @@ function App() {
     }
   }
 
+  const applyFullscreenScale = () => {
+    const sc = screenContainerRef.current
+    if (!sc) return
+
+    // v86 text mode renders 80 cols × 25 rows at font: 14px monospace, lineHeight: 14px
+    // The text div's intrinsic width depends on the monospace font but is ~896px × 350px
+    // We hardcode these known dimensions to avoid measurement issues in fullscreen
+    const CONTENT_W = 896
+    const CONTENT_H = 350
+
+    const vw = window.innerWidth
+    const vh = window.innerHeight
+
+    // Check if v86 is in graphics mode (canvas visible)
+    const canvas = sc.querySelector('canvas') as HTMLCanvasElement
+    let contentW = CONTENT_W
+    let contentH = CONTENT_H
+    if (canvas && canvas.style.display !== 'none' && canvas.width > 0) {
+      contentW = canvas.width
+      contentH = canvas.height
+    }
+
+    const scale = Math.min(vw / contentW, vh / contentH)
+    const scaledW = contentW * scale
+    const scaledH = contentH * scale
+
+    // Position and scale the screen_container
+    sc.style.cssText = `
+      position: absolute;
+      width: ${contentW}px;
+      height: ${contentH}px;
+      overflow: hidden;
+      transform-origin: 0 0;
+      transform: scale(${scale});
+      left: ${(vw - scaledW) / 2}px;
+      top: ${(vh - scaledH) / 2}px;
+    `
+  }
+
+  const resetScreenScale = () => {
+    const sc = screenContainerRef.current
+    if (!sc) return
+    sc.style.cssText = ''
+  }
+
   const toggleFullscreen = () => {
-    const container = document.getElementById('emulator-wrapper')
+    const container = document.getElementById('fullscreen-target')
     if (!container) return
     if (!document.fullscreenElement) {
       container.requestFullscreen()
-      setIsFullscreen(true)
     } else {
       document.exitFullscreen()
-      setIsFullscreen(false)
     }
   }
 
   useEffect(() => {
     const handler = () => {
-      if (!document.fullscreenElement) setIsFullscreen(false)
+      if (document.fullscreenElement) {
+        setIsFullscreen(true)
+        setTimeout(applyFullscreenScale, 50)
+      } else {
+        setIsFullscreen(false)
+        resetScreenScale()
+      }
     }
     document.addEventListener('fullscreenchange', handler)
     return () => document.removeEventListener('fullscreenchange', handler)
@@ -185,12 +234,12 @@ function App() {
           </div>
 
           {/* Screen */}
-          <div className="relative bg-black" style={{ minHeight: '400px' }}>
+          <div id="fullscreen-target" className="relative bg-black" style={{ minHeight: isFullscreen ? undefined : '400px' }}>
             <div
               ref={screenContainerRef}
               id="screen_container"
-              className="w-full flex items-center justify-center"
-              style={{ minHeight: '400px' }}
+              className="w-full"
+              style={{ minHeight: isFullscreen ? undefined : '400px' }}
             >
               <div style={{ whiteSpace: 'pre', font: '14px monospace', lineHeight: '14px' }}></div>
               <canvas style={{ display: 'none' }}></canvas>

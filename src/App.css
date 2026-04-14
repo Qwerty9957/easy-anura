@@ -41,3 +41,12 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Fullscreen: black background, full viewport */
+#fullscreen-target:fullscreen {
+  background: #000;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
